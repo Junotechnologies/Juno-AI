@@ -22,7 +22,7 @@ The Juno AI system provides intelligent, personalized recommendations for TENS (
 - **Context-Aware Recommendations**: Considers menstrual cycle phase, pain levels, medication usage, time of day, and user experience
 - **Intelligent Constraints**: Enforces physical device constraints (e.g., TENS level = 0 when mode = 0)
 - **Real-Time API**: Serverless Cloud Function API with sub-second response times
-- **High Accuracy**: 75-85% accuracy across all prediction tasks with comprehensive feature engineering
+- **High Accuracy**: Variable accuracy (31-63%) across prediction tasks with comprehensive feature engineering
 
 ### Target Predictions
 1. **TENS Mode** (4 classes: 0-3)
@@ -67,7 +67,7 @@ JunoAI/
 ### System Components
 
 1. **Data Source**: BigQuery dataset (`junoplus-dev.junoplus_analytics.ml_training_data`)
-   - 50,000+ therapy sessions
+   - 28,000+ therapy sessions
    - User demographics, cycle tracking, pain levels, device settings
    - Medication tracking, session outcomes
 
@@ -183,7 +183,7 @@ else:
 - ✅ Enforces physical constraints (mode → level dependency)
 - ✅ Higher accuracy on TENS level by focusing on relevant data
 - ✅ Interpretable two-stage process
-- ✅ Fast training with LightGBM (~5 minutes on 50K samples)
+- ✅ Fast training with LightGBM (~5 minutes on 28K samples)
 - ✅ Easy to inspect feature importance per stage
 
 **Disadvantages**:
@@ -192,10 +192,10 @@ else:
 - ❌ Stage 1 errors propagate to Stage 2
 
 **Performance**:
-- Heat Level: ~84% accuracy (4 classes)
-- TENS Mode: ~81% accuracy (4 classes)
-- TENS Level (Hierarchical): ~78% accuracy (11 classes)
-- Weighted F1 Scores: 0.81-0.84 across all tasks
+- Heat Level: 55.4% accuracy (4 classes)
+- TENS Mode: 63.4% accuracy (4 classes)
+- TENS Level (Hierarchical): 31.1% accuracy (11 classes)
+- Weighted F1 Scores: 0.43-0.58 across all tasks
 
 **Feature Importance** (Top 10):
 1. `user_avg_tens` - User's historical average TENS level
@@ -451,9 +451,9 @@ END AS data_split
 - Deterministic (same split across re-runs)
 
 **Split Distribution**:
-- Training: ~35,000 sessions (1,200 users)
-- Evaluation: ~10,000 sessions (350 users)
-- Test: ~5,000 sessions (175 users)
+- Training: 24,095 sessions (280 users)
+- Evaluation: 2,668 sessions (32 users)
+- Test: 1,232 sessions (14 users)
 
 ---
 
@@ -643,8 +643,8 @@ curl -X POST https://us-central1-junoplus-dev.cloudfunctions.net/predict-tens-le
 
 | Metric | Heat Level | TENS Mode | TENS Level |
 |--------|-----------|-----------|------------|
-| **Accuracy** | 84.2% | 81.3% | 77.8% |
-| **F1 Score** | 0.84 | 0.81 | 0.78 |
+| **Accuracy** | 55.4% | 63.4% | 31.1% |
+| **F1 Score** | 0.43 | 0.58 | 0.24 |
 
 ### Multi-Output Deep Learning (Approach 3)
 
@@ -674,6 +674,6 @@ curl -X POST http://localhost:8080 \
 
 ---
 
-**Last Updated**: November 23, 2025  
+**Last Updated**: November 24, 2025  
 **Version**: 2.0.0  
 **Maintained by**: Juno Technologies AI Team
