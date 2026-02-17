@@ -1,0 +1,50 @@
+# ========================================
+# DEVELOPMENT ENVIRONMENT CONFIGURATION
+# ========================================
+
+# Project Configuration
+project_id  = "junoplus-dev"
+environment = "dev"
+region      = "us-central1"
+
+# BigQuery Configuration
+bq_location         = "US"
+bq_delete_protection = false # Allow easy cleanup in dev
+
+# Dataset naming (will be suffixed with _dev automatically)
+bq_bronze_dataset_id  = "junoplus_analytics"
+bq_silver_dataset_id  = "junoplus_analytics_silver"
+bq_gold_dataset_id    = "junoplus_analytics_gold"
+bq_quality_dataset_id = "junoplus_analytics_quality"
+
+# Cloud Functions Configuration
+functions_runtime = "python311"
+functions_memory  = 512
+functions_timeout = 540
+
+# Scheduler Configuration (More frequent in dev for testing)
+scheduler_timezone    = "UTC"
+refresh_silver_cron   = "0 */6 * * *"  # Every 6 hours
+refresh_gold_cron     = "0 8 * * *"    # Daily at 8 AM
+quality_check_cron    = "0 * * * *"    # Hourly
+ml_snapshot_cron      = "0 9 * * 1"    # Monday at 9 AM
+
+# Firebase Configuration
+firebase_project_id = "junoplus-dev"
+firestore_location  = "nam5"
+
+# Feature Flags
+enable_ml_snapshots   = true
+enable_quality_checks = true
+enable_monitoring     = true
+
+# Labels
+labels = {
+  managed_by  = "terraform"
+  project     = "juno-analytics"
+  environment = "dev"
+  cost_center = "development"
+}
+
+# Monitoring (Email should be stored in Secret Manager or provided at runtime)
+# notification_email = "" # Leave empty, provide via environment variable

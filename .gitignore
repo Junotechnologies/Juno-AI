@@ -1,0 +1,20 @@
+# Terraform generated artifacts
+**/.terraform/*
+**/*.tfstate*
+
+# Python generated artifacts
+**/__pycache__/
+
+# Sensitive variable files
+**/*.tfvars
+**/*.tfvars.json
+
+# Sensitive env files
+**/*.env
+**/.env
+**/.env.*
+
+# Keep sanitized templates in version control
+!**/*.example
+!**/*.env.example
+!**/*.tfvars.example

@@ -1,0 +1,5 @@
+# Backend configuration for DEV environment
+# Copy this to backend-dev.tfvars and update the bucket name
+
+bucket = "junoplus-dev-terraform-state"
+prefix = "terraform/state/dev"

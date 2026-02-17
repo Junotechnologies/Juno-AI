@@ -1,0 +1,22 @@
+# ========================================
+# GLOBAL DEFAULT VALUES
+# ========================================
+# This file contains default values that are common across all environments.
+# Environment-specific overrides should be placed in environments/*.tfvars
+# 
+# IMPORTANT: This file is for EXAMPLES only. The actual terraform.tfvars
+# is ignored by git for security. Copy this to terraform.tfvars and customize.
+
+# These values are typically overridden in environment-specific files
+# Leave them commented out to use the defaults from variables.tf
+
+# region      = "us-central1"
+# bq_location = "US"
+
+# Common labels applied to all resources
+# labels = {
+#   managed_by  = "terraform"
+#   project     = "juno-analytics"
+#   cost_center = "engineering"
+#   team        = "data-platform"
+# }

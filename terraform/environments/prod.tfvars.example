@@ -1,0 +1,51 @@
+# ========================================
+# PRODUCTION ENVIRONMENT CONFIGURATION
+# ========================================
+
+# Project Configuration
+project_id  = "juno-9dfb6"
+environment = "prod"
+region      = "us-central1"
+
+# BigQuery Configuration
+bq_location          = "US"
+bq_delete_protection = true # CRITICAL: Prevent accidental deletion
+
+# Dataset naming (will be suffixed with _prod automatically)
+bq_bronze_dataset_id  = "junoplus_analytics"
+bq_silver_dataset_id  = "junoplus_analytics_silver"
+bq_gold_dataset_id    = "junoplus_analytics_gold"
+bq_quality_dataset_id = "junoplus_analytics_quality"
+
+# Cloud Functions Configuration
+functions_runtime = "python311"
+functions_memory  = 1024  # More memory for production
+functions_timeout = 540
+
+# Scheduler Configuration (Production schedules)
+scheduler_timezone    = "UTC"
+refresh_silver_cron   = "0 2 * * *"    # Daily at 2 AM UTC
+refresh_gold_cron     = "0 3 * * 0"    # Weekly on Sunday at 3 AM UTC
+quality_check_cron    = "0 * * * *"    # Hourly
+ml_snapshot_cron      = "0 4 * * 1"    # Weekly on Monday at 4 AM UTC
+
+# Firebase Configuration
+firebase_project_id = "juno-9dfb6"
+firestore_location  = "nam5"
+
+# Feature Flags
+enable_ml_snapshots   = true
+enable_quality_checks = true
+enable_monitoring     = true
+
+# Labels
+labels = {
+  managed_by  = "terraform"
+  project     = "juno-analytics"
+  environment = "production"
+  cost_center = "production"
+  criticality = "high"
+}
+
+# Monitoring (Email should be stored in Secret Manager or provided at runtime)
+# notification_email = "" # Leave empty, provide via environment variable or Secret Manager
